@@ -27,10 +27,11 @@ public class UserController {
         return ResponseEntity.ok(userDto);
     }
 
-//    @PutMapping("{id}/address")
-//    public ResponseEntity<UserDto> updateUserId(@PathVariable int id, @RequestBody Map<String, Double> request) {
-//        String up = request.get("Address");
-//        UserDto productDto = userService.updatedUserId(id, updatedPrice);
-//        return ResponseEntity.ok(productDto);
-//    }
+    @PutMapping("{id}/address")
+    public ResponseEntity<UserDto> updateAdressById(@PathVariable int id, @RequestBody Map<String, String> request) {
+        String updatedAdress = request.get("address");
+        UserDto userDto = userService.UpdateuserAddressById(id, updatedAdress);
+        return ResponseEntity.ok(userDto);
+    }
+
 }
