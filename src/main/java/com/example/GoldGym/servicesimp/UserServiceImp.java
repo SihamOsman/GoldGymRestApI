@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class UserServiceImp implements UserService {
     @Autowired
@@ -30,19 +32,53 @@ public class UserServiceImp implements UserService {
 
     @Override
     public List<UserDto> getAllUsers() {
-        return null;
+
+        List<User> users= userRepository.findAll();
+        List<UserDto> userDtos= users.stream().map(userMapper::mapToUserDto).collect(Collectors.toList());
+
+        return userDtos;
+    }
+
+
+    @Override
+    public UserDto updateUserById(int id, UserDto userDto) {
+        /*
+            1. Retrieve product by id
+            2. Use setters to change the properties of user
+            3. Save the user in the DB with the updated properties.
+            4. Convert the entity user into a DTO object
+            5. Return the DTO object to the Controller
+         */
+
+        // Step 1.
+        User user = userRepository.
+                findById(id).
+                orElseThrow( () -> new RuntimeException("User of this ID does not exist") );
+
+        // Step 2.
+        user.setFirstName(userDto.getFirstName());
+        user.setLastName(userDto.getLastName());
+        user.setAddress(userDto.getAddress());
+
+        // Step 3.
+        User savedUser = userRepository.save(user);
+
+        // Step 4 and 5
+        return userMapper.mapToUserDto(savedUser);
     }
 
     @Override
-    public UserDto UpdateuserAddressById(int id, String address) {
-        User user =userRepository.findById(id).orElseThrow( () -> new RuntimeException("User Id does not exist"));
-        user.setAddress(address);
-        User savedaddress =userRepository.save(user);
-        return userMapper.mapToUserDto(savedaddress);
-    }
-
-    @Override
-    public String deleteUserByID(int id) {
-        return null;
+    public String deleteUserById(int id) {
+        /*
+            1. Check if the object of this id exists
+            2. If it does, delete it.
+         */
+        if (userRepository.existsById(id)) {
+            userRepository.deleteById(id);
+            return "Successfully deleted user " + id;
+        }
+        else {
+            return "No record of that ID found.";
+        }
     }
 }
