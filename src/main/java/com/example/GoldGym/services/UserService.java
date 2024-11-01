@@ -9,7 +9,7 @@ public interface UserService {
     //Specify CRUD Operations
     UserDto createUser(UserDto userDto);
     UserDto getUserById(int id);
-   List <UserDto> getAllUsers();
+    List <UserDto> getAllUsers();
     UserDto updateUserById(int id, UserDto userDto);
     String deleteUserById(int id);
 }
