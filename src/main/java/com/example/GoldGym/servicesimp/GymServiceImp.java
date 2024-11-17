@@ -4,6 +4,7 @@ import com.example.GoldGym.dto.GymDto;
 import com.example.GoldGym.mapper.GymMapper;
 import com.example.GoldGym.models.Gym;
 import com.example.GoldGym.repositories.GymRepository;
+import com.example.GoldGym.repositories.UserRepository;
 import com.example.GoldGym.services.GymService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,8 @@ public class GymServiceImp implements GymService {
     private GymRepository gymRepository;
     @Autowired
     private GymMapper gymMapper;
+    @Autowired
+    private UserRepository userRepository;
     @Override
     public GymDto createGym(GymDto gymDto) {
         Gym gym=gymMapper.mapToGym(gymDto);
@@ -38,6 +41,11 @@ public class GymServiceImp implements GymService {
     }
 
     @Override
+    public List<GymDto> getgymsByUserId(int userId) {
+        return List.of();
+    }
+
+    @Override
     public GymDto updateGymById(int id, GymDto gymDto) {
       Gym gym = gymRepository.
                 findById(id).
@@ -50,9 +58,7 @@ public class GymServiceImp implements GymService {
         // Step 3.
        Gym savedgym = gymRepository.save(gym);
         return gymMapper.mapToGymDto(savedgym);
-    }
-
-    @Override
+    } @Override
     public String deleteGymById(int id) {
         if (gymRepository.existsById(id)) {
             gymRepository.deleteById(id);

@@ -21,5 +21,9 @@ public class Gym {
     @Column(name = "managerName")
     private String managerName;
 
+@ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn (name = "user_id")
+    private User userId;
+
 
 }

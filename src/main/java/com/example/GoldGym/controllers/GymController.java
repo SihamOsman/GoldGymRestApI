@@ -11,7 +11,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/gym")
 public class GymController {
-    private GymService gymService;
+     GymService gymService;
 
     public GymController(GymService gymService) {
         this.gymService = gymService;

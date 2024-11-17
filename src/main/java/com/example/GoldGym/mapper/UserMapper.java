@@ -7,13 +7,17 @@ import org.springframework.stereotype.Component;
 @Component
 public class UserMapper {
     //Convert DTo object into Entity Object
-    public User mapToUser(UserDto userDto) {
-        User user=new User(
-                userDto.getId(),
-                userDto.getFirstName(),
-                userDto.getLastName(),
-                userDto.getAddress()
-        ) ;
+    public static User mapToUser(UserDto userDto) {
+        User user=new User();
+        user.setId(userDto.getId());
+        user.setFirstName(userDto.getFirstName());
+        user.setLastName(userDto.getLastName());
+        user.setAddress(userDto.getAddress());
+//                userDto.getId(),
+//                userDto.getFirstName(),
+//                userDto.getLastName(),
+//                userDto.getAddress()
+//        ) ;
         return user;
     }
     public UserDto mapToUserDto(User user) {

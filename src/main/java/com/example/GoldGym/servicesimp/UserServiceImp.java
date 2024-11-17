@@ -35,7 +35,6 @@ public class UserServiceImp implements UserService {
 
         List<User> users= userRepository.findAll();
         List<UserDto> userDtos= users.stream().map(userMapper::mapToUserDto).collect(Collectors.toList());
-
         return userDtos;
     }
 

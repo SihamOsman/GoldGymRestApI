@@ -6,6 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -22,4 +25,6 @@ public class User {
     private String lastName;
     @Column(name = "address")
     private String address;
+    @OneToMany(mappedBy = "userId",cascade = CascadeType.ALL,orphanRemoval = true)
+    private List<Gym> gyms=new ArrayList<>();
 }
